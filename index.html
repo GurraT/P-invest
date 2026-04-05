@@ -3,196 +3,117 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Futuristic HUD Dashboard</title>
+<title>Futuristic Mind Map</title>
 <style>
   body {
-    margin: 0;
+    background-color: #0d0d0d;
     font-family: 'Arial', sans-serif;
-    background: #0b0b0f; /* dark HUD background */
-    color: #c0c0c0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
     overflow: hidden;
   }
 
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
+  .mindmap {
     position: relative;
-    z-index: 100;
+    width: 600px;
+    height: 600px;
   }
 
-  header h1 {
-    margin: 0;
-    font-size: 1.6rem;
-    color: #c0c0c0;
-    text-shadow: 0 0 6px #00ffff;
-  }
-
-  .hamburger {
-    display: flex;
-    flex-direction: column;
-    cursor: pointer;
-    gap: 5px;
-  }
-  .hamburger div {
-    width: 30px;
-    height: 3px;
-    background: rgba(200,200,200,0.6);
-    border-radius: 2px;
-    box-shadow: 0 0 4px #00ffff;
-  }
-
-  main {
-    position: relative;
-    width: 100%;
-    height: calc(100vh - 80px);
-  }
-
-  /* Central circular HUD */
-  .hud-center {
+  .node {
     position: absolute;
+    padding: 15px 25px;
+    background: linear-gradient(135deg, #00f0ff, #ff00ff);
+    border-radius: 15px;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+    box-shadow: 0 0 15px rgba(0,255,255,0.7), 0 0 30px rgba(255,0,255,0.5);
+    cursor: pointer;
+    transition: transform 0.3s;
+  }
+
+  .node:hover {
+    transform: scale(1.1);
+  }
+
+  .center {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    border: 2px solid rgba(0,255,255,0.4);
-    box-shadow: 0 0 20px rgba(0,255,255,0.2);
   }
 
-  .hud-center::before, .hud-center::after {
-    content: '';
-    position: absolute;
-    border: 1px solid rgba(0,255,255,0.2);
-    border-radius: 50%;
-    width: 80%;
-    height: 80%;
-    top: 10%;
-    left: 10%;
-  }
+  .stocks { top: 10%; left: 50%; transform: translate(-50%, 0); }
+  .market { top: 50%; left: 90%; transform: translate(-50%, -50%); }
+  .conclusion { top: 90%; left: 50%; transform: translate(-50%, -50%); }
+  .other { top: 50%; left: 10%; transform: translate(-50%, -50%); }
 
-  /* HUD panels */
-  .hud-panel {
-    position: absolute;
-    padding: 1rem;
-    background: rgba(255,255,255,0.02);
-    border-radius: 12px;
-    color: #c0c0c0;
-    box-shadow: 0 0 10px rgba(0,255,255,0.2);
-    text-align: center;
-    border: 1px solid rgba(0,255,255,0.2);
-  }
-
-  .hud-panel h2 {
-    margin: 0 0 0.5rem 0;
-    font-size: 1rem;
-    color: #00ffff;
-  }
-
-  /* Positions around the center */
-  #conclusion { top: 5%; left: 50%; transform: translateX(-50%); width: 250px; }
-  #graph { bottom: 5%; left: 10%; width: 200px; }
-  #barometer { bottom: 5%; right: 10%; width: 200px; }
-
-  .flat-barometer {
-    width: 100%;
-    height: 12px;
-    background: rgba(0,255,255,0.05);
-    border-radius: 6px;
-    overflow: hidden;
-    margin-top: 0.5rem;
-    box-shadow: inset 0 0 4px rgba(0,255,255,0.2);
-  }
-
-  .flat-barometer-fill {
-    height: 100%;
-    background: linear-gradient(90deg, rgba(0,255,255,0.4), rgba(0,255,255,0.2));
-    width: 70%;
-  }
-
-  canvas {
-    width: 100%;
-    height: 100px;
-    background: rgba(0,255,255,0.05);
-    border-radius: 6px;
-    box-shadow: 0 0 6px rgba(0,255,255,0.2);
-  }
-
-  /* Connecting HUD lines */
+  /* Lines connecting nodes */
   .line {
     position: absolute;
     width: 2px;
-    background: rgba(0,255,255,0.2);
-    transform-origin: top;
+    background: #0ff;
+    transform-origin: top left;
   }
-
 </style>
 </head>
 <body>
-<header>
-  <h1>Futuristic HUD</h1>
-  <div class="hamburger" onclick="toggleMenu()">
-    <div></div><div></div><div></div>
-  </div>
-</header>
+<div class="mindmap">
+  <!-- Nodes -->
+  <div class="node center">Home</div>
+  <div class="node stocks">Stocks</div>
+  <div class="node market">Market Info</div>
+  <div class="node conclusion">Conclusion</div>
+  <div class="node other">Other</div>
 
-<main>
-  <!-- Central circular HUD -->
-  <div class="hud-center"></div>
-
-  <!-- Conclusion panel above center -->
-  <div id="conclusion" class="hud-panel">
-    <h2>Conclusion</h2>
-    <p>System insights displayed here.</p>
-  </div>
-
-  <!-- Graph panel bottom left -->
-  <div id="graph" class="hud-panel">
-    <h2>Graph</h2>
-    <canvas id="graphCanvas"></canvas>
-  </div>
-
-  <!-- Barometer panel bottom right -->
-  <div id="barometer" class="hud-panel">
-    <h2>Barometer</h2>
-    <div class="flat-barometer">
-      <div class="flat-barometer-fill"></div>
-    </div>
-  </div>
-</main>
+  <!-- Lines -->
+  <div class="line" id="line1"></div>
+  <div class="line" id="line2"></div>
+  <div class="line" id="line3"></div>
+  <div class="line" id="line4"></div>
+</div>
 
 <script>
-function toggleMenu(){ alert('Hamburger clicked!'); }
+  // Function to draw line between two nodes
+  function connectLine(lineId, nodeA, nodeB) {
+    const line = document.getElementById(lineId);
+    const rectA = nodeA.getBoundingClientRect();
+    const rectB = nodeB.getBoundingClientRect();
 
-// Chart.js for Graph
-const script = document.createElement('script');
-script.src = "https://cdn.jsdelivr.net/npm/chart.js";
-script.onload = () => {
-  const ctx = document.getElementById('graphCanvas').getContext('2d');
-  new Chart(ctx, {
-    type:'line',
-    data:{
-      labels:['Jan','Feb','Mar','Apr','May','Jun'],
-      datasets:[{
-        label:'Data',
-        data:[12,19,3,5,2,3],
-        borderColor:'rgba(0,255,255,0.6)',
-        backgroundColor:'rgba(0,255,255,0.1)',
-        tension:0.3
-      }]
-    },
-    options:{
-      plugins:{legend:{labels:{color:'#00ffff'}}},
-      scales:{
-        x:{ticks:{color:'#00ffff'},grid:{color:'rgba(0,255,255,0.1)'}},
-        y:{ticks:{color:'#00ffff'},grid:{color:'rgba(0,255,255,0.1)'}}
-      }
-    }
+    const parentRect = nodeA.parentElement.getBoundingClientRect();
+
+    const x1 = rectA.left + rectA.width / 2 - parentRect.left;
+    const y1 = rectA.top + rectA.height / 2 - parentRect.top;
+    const x2 = rectB.left + rectB.width / 2 - parentRect.left;
+    const y2 = rectB.top + rectB.height / 2 - parentRect.top;
+
+    const length = Math.hypot(x2 - x1, y2 - y1);
+    const angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
+
+    line.style.width = length + "px";
+    line.style.top = y1 + "px";
+    line.style.left = x1 + "px";
+    line.style.transform = `rotate(${angle}deg)`;
+  }
+
+  const home = document.querySelector('.center');
+  const stocks = document.querySelector('.stocks');
+  const market = document.querySelector('.market');
+  const conclusion = document.querySelector('.conclusion');
+  const other = document.querySelector('.other');
+
+  connectLine('line1', home, stocks);
+  connectLine('line2', home, market);
+  connectLine('line3', home, conclusion);
+  connectLine('line4', home, other);
+
+  window.addEventListener('resize', () => {
+    connectLine('line1', home, stocks);
+    connectLine('line2', home, market);
+    connectLine('line3', home, conclusion);
+    connectLine('line4', home, other);
   });
-};
-document.body.appendChild(script);
 </script>
 </body>
 </html>
