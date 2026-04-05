@@ -1,190 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Futuristic Dashboard</title>
-  <style>
-    /* Global styles */
-    body {
-      margin: 0;
-      font-family: 'Arial', sans-serif;
-      background: #0a0a0f;
-      color: #e0e0e0;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Futuristic Control Panel</title>
+<style>
+  body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background: #0a0a0f;
+    color: #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
 
-    /* Header */
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      background: rgba(20, 20, 40, 0.8);
-      backdrop-filter: blur(10px);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: rgba(20,20,40,0.8);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  header h1 { margin:0; font-size:1.8rem; color:#00fff0; }
+  .hamburger { display:flex; flex-direction:column; cursor:pointer; gap:5px; }
+  .hamburger div { width:30px; height:3px; background:#00fff0; border-radius:2px; }
 
-    header h1 {
-      margin: 0;
-      font-size: 1.8rem;
-      color: #00fff0;
-    }
+  main {
+    flex:1;
+    padding:2rem;
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-auto-rows: 200px;
+    gap:1.5rem;
+  }
 
-    .hamburger {
-      display: flex;
-      flex-direction: column;
-      cursor: pointer;
-      gap: 5px;
-    }
+  .panel {
+    background: rgba(20,20,40,0.6);
+    border-radius:16px;
+    box-shadow: 0 0 20px #00fff050;
+    backdrop-filter: blur(8px);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    padding:1rem;
+    transition: transform 0.2s;
+  }
+  .panel:hover { transform: scale(1.05); box-shadow: 0 0 30px #00fff0; }
 
-    .hamburger div {
-      width: 30px;
-      height: 3px;
-      background: #00fff0;
-      border-radius: 2px;
-      transition: 0.3s;
-    }
+  .panel h2 { color:#00fff0; margin:0 0 1rem 0; }
 
-    /* Body layout */
-    main {
-      flex: 1;
-      padding: 2rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-    }
+  input.search { 
+    width: 100%;
+    padding: 0.8rem;
+    border-radius: 12px;
+    border: none;
+    background: rgba(255,255,255,0.05);
+    color:#00fff0;
+    font-size:1rem;
+    outline:none;
+    box-shadow:0 0 10px #00fff0;
+    text-align:center;
+  }
 
-    /* Search field */
-    .search-field input {
-      width: 100%;
-      padding: 0.8rem;
-      border-radius: 12px;
-      border: none;
-      background: rgba(255, 255, 255, 0.05);
-      color: #00fff0;
-      font-size: 1rem;
-      outline: none;
-      box-shadow: 0 0 10px #00fff0;
-    }
-
-    /* Card style for sections */
-    .card {
-      padding: 1.5rem;
-      background: rgba(20, 20, 40, 0.6);
-      border-radius: 16px;
-      box-shadow: 0 0 20px #00fff050;
-      backdrop-filter: blur(8px);
-      min-height: 150px;
-    }
-
-    .card h2 {
-      margin-top: 0;
-      color: #00fff0;
-    }
-
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 1rem;
-      background: rgba(20, 20, 40, 0.8);
-      backdrop-filter: blur(10px);
-      position: relative;
-    }
-
-    footer .banner {
-      background: linear-gradient(90deg, #00fff0, #ff00ff);
-      padding: 0.5rem;
-      border-radius: 12px;
-      font-weight: bold;
-      color: #000;
-      margin-top: 0.5rem;
-      display: inline-block;
-    }
-
-    /* Responsive adjustments */
-    @media(max-width: 600px) {
-      header h1 {
-        font-size: 1.4rem;
-      }
-    }
-  </style>
+  footer {
+    text-align:center;
+    padding:1rem;
+    background: rgba(20,20,40,0.8);
+    backdrop-filter: blur(10px);
+  }
+  footer .banner {
+    background: linear-gradient(90deg, #00fff0, #ff00ff);
+    padding:0.5rem;
+    border-radius:12px;
+    font-weight:bold;
+    color:#000;
+    margin-top:0.5rem;
+    display:inline-block;
+  }
+</style>
 </head>
 <body>
-  <header>
-    <h1>Futuristic Dashboard</h1>
-    <div class="hamburger" onclick="toggleMenu()">
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-  </header>
+<header>
+  <h1>Control Panel 2050</h1>
+  <div class="hamburger" onclick="toggleMenu()">
+    <div></div><div></div><div></div>
+  </div>
+</header>
 
-  <main>
-    <div class="search-field card">
-      <h2>Search</h2>
-      <input type="text" placeholder="Type your query...">
-    </div>
+<main>
+  <div class="panel">
+    <h2>Search</h2>
+    <input class="search" placeholder="Enter query...">
+  </div>
 
-    <div class="conclusion card">
-      <h2>Conclusion</h2>
-      <p>Summary and insights will appear here.</p>
-    </div>
+  <div class="panel">
+    <h2>Conclusion</h2>
+    <p style="text-align:center;">System insights displayed here.</p>
+  </div>
 
-    <div class="graph card">
-      <h2>Graph</h2>
-      <canvas id="graphCanvas" width="300" height="200"></canvas>
-    </div>
+  <div class="panel">
+    <h2>Graph</h2>
+    <canvas id="graphCanvas" width="200" height="150"></canvas>
+  </div>
 
-    <div class="barometer card">
-      <h2>Barometer</h2>
-      <div style="text-align:center;font-size:2rem;color:#00fff0;">75%</div>
-    </div>
-  </main>
+  <div class="panel">
+    <h2>Barometer</h2>
+    <div style="font-size:2rem;color:#00fff0;">75%</div>
+  </div>
 
-  <footer>
-    &copy; 2026 Futuristic Dashboard
-    <div class="banner">Welcome to the Neon Future!</div>
-  </footer>
+  <div class="panel">
+    <h2>Engine Status</h2>
+    <p>Nominal</p>
+  </div>
 
-  <script>
-    // Hamburger menu toggle (dummy for now)
-    function toggleMenu() {
-      alert('Hamburger menu clicked!');
+  <div class="panel">
+    <h2>Fuel Level</h2>
+    <div style="font-size:2rem;color:#00fff0;">68%</div>
+  </div>
+
+  <div class="panel">
+    <h2>Navigation</h2>
+    <p>Coordinates: 12.34°N, 56.78°E</p>
+  </div>
+
+  <div class="panel">
+    <h2>Alerts</h2>
+    <p>No alerts</p>
+  </div>
+</main>
+
+<footer>
+  &copy; 2026 Futuristic Panel
+  <div class="banner">Neon Cockpit Active</div>
+</footer>
+
+<script>
+function toggleMenu(){ alert('Hamburger clicked!'); }
+
+// Chart example
+const script = document.createElement('script');
+script.src = "https://cdn.jsdelivr.net/npm/chart.js";
+script.onload = () => {
+  const ctx = document.getElementById('graphCanvas').getContext('2d');
+  new Chart(ctx, {
+    type:'line',
+    data:{
+      labels:['Jan','Feb','Mar','Apr','May','Jun'],
+      datasets:[{label:'Data', data:[12,19,3,5,2,3], borderColor:'#00fff0', backgroundColor:'#00fff033', tension:0.3}]
+    },
+    options:{
+      plugins:{legend:{labels:{color:'#00fff0'}}},
+      scales:{
+        x:{ticks:{color:'#00fff0'},grid:{color:'#00fff050'}},
+        y:{ticks:{color:'#00fff0'},grid:{color:'#00fff050'}}
+      }
     }
-
-    // Example chart using Chart.js
-    // Optional: include via CDN
-    const script = document.createElement('script');
-    script.src = "https://cdn.jsdelivr.net/npm/chart.js";
-    script.onload = () => {
-      const ctx = document.getElementById('graphCanvas').getContext('2d');
-      new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-          datasets: [{
-            label: 'Data',
-            data: [12, 19, 3, 5, 2, 3],
-            borderColor: '#00fff0',
-            backgroundColor: '#00fff033',
-            tension: 0.3
-          }]
-        },
-        options: {
-          plugins: { legend: { labels: { color: '#00fff0' } } },
-          scales: {
-            x: { ticks: { color: '#00fff0' }, grid: { color: '#00fff050' } },
-            y: { ticks: { color: '#00fff0' }, grid: { color: '#00fff050' } }
-          }
-        }
-      });
-    };
-    document.body.appendChild(script);
-  </script>
+  });
+};
+document.body.appendChild(script);
+</script>
 </body>
 </html>
