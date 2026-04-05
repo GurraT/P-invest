@@ -63,7 +63,7 @@
     align-items: center;
     justify-content: center;
     padding: 1rem;
-    border: 1px solid rgba(200,200,200,0.3);
+    border: none; /* removed border */
     border-radius: 16px;
     background: rgba(255,255,255,0.03);
     color: #c0c0c0;
@@ -83,19 +83,6 @@
     margin: 0 0 1rem 0;
     font-weight: 500;
     text-shadow: 0 0 2px rgba(255,255,255,0.3);
-  }
-
-  .halfmoon-field {
-    width: 80%;
-    height: 50px;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(200,200,200,0.4);
-    border-radius: 25px 25px 0 0;
-    color: #c0c0c0;
-    text-align: center;
-    font-size: 1rem;
-    outline: none;
-    box-shadow: 0 0 4px rgba(255,255,255,0.2);
   }
 
   .flat-barometer {
@@ -138,48 +125,24 @@
 </header>
 
 <main>
-  <div class="panel">
-    <h2>Search</h2>
-    <input class="halfmoon-field" placeholder="Enter query...">
-  </div>
-
+  <!-- Conclusion Panel on top -->
   <div class="panel">
     <h2>Conclusion</h2>
     <p>System insights displayed here.</p>
   </div>
 
+  <!-- Graph Panel -->
   <div class="panel">
     <h2>Graph</h2>
     <canvas id="graphCanvas" width="200" height="150"></canvas>
   </div>
 
+  <!-- Barometer Panel -->
   <div class="panel">
     <h2>Barometer</h2>
     <div class="flat-barometer">
       <div class="flat-barometer-fill"></div>
     </div>
-  </div>
-
-  <div class="panel">
-    <h2>Engine Status</h2>
-    <p>Nominal</p>
-  </div>
-
-  <div class="panel">
-    <h2>Fuel Level</h2>
-    <div class="flat-barometer">
-      <div class="flat-barometer-fill" style="width:68%;"></div>
-    </div>
-  </div>
-
-  <div class="panel">
-    <h2>Navigation</h2>
-    <p>12.34°N, 56.78°E</p>
-  </div>
-
-  <div class="panel">
-    <h2>Alerts</h2>
-    <p>No alerts</p>
   </div>
 </main>
 
@@ -200,7 +163,13 @@ script.onload = () => {
     type:'line',
     data:{
       labels:['Jan','Feb','Mar','Apr','May','Jun'],
-      datasets:[{label:'Data', data:[12,19,3,5,2,3], borderColor:'rgba(200,200,200,0.6)', backgroundColor:'rgba(255,255,255,0.1)', tension:0.3}]
+      datasets:[{
+        label:'Data', 
+        data:[12,19,3,5,2,3], 
+        borderColor:'rgba(200,200,200,0.6)', 
+        backgroundColor:'rgba(255,255,255,0.1)', 
+        tension:0.3
+      }]
     },
     options:{
       plugins:{legend:{labels:{color:'#c0c0c0'}}},
