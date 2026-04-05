@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Futuristic Control Panel</title>
+<title>Futuristic Metallic Control Panel</title>
 <style>
   body {
     margin: 0;
@@ -20,7 +20,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    background: rgba(20,20,40,0.6);
+    background: rgba(30,30,50,0.5);
     backdrop-filter: blur(10px);
     position: sticky;
     top: 0;
@@ -40,17 +40,27 @@
   }
 
   .panel {
-    background: rgba(20,20,40,0.3);
+    background: rgba(50,50,60,0.3);
     border-radius: 16px;
     display:flex;
     flex-direction:column;
     justify-content:center;
     align-items:center;
     padding:1rem;
-    transition: transform 0.2s;
-    position: relative;
+    transition: transform 0.2s, box-shadow 0.2s;
+    backdrop-filter: blur(8px) saturate(150%);
+    border: 1px solid rgba(200,200,200,0.2);
+    background-image: linear-gradient(
+      145deg,
+      rgba(180,180,180,0.1) 0%,
+      rgba(255,255,255,0.05) 50%,
+      rgba(180,180,180,0.1) 100%
+    );
   }
-  .panel:hover { transform: scale(1.03); }
+  .panel:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 30px #00fff080;
+  }
 
   .panel h2 { color:#00fff0; margin:0 0 1rem 0; }
 
@@ -85,7 +95,7 @@
   footer {
     text-align:center;
     padding:1rem;
-    background: rgba(20,20,40,0.6);
+    background: rgba(30,30,50,0.5);
     backdrop-filter: blur(10px);
   }
   footer .banner {
@@ -101,7 +111,7 @@
 </head>
 <body>
 <header>
-  <h1>Control Panel 2050</h1>
+  <h1>Metallic Control Panel</h1>
   <div class="hamburger" onclick="toggleMenu()">
     <div></div><div></div><div></div>
   </div>
@@ -154,7 +164,7 @@
 </main>
 
 <footer>
-  &copy; 2026 Futuristic Panel
+  &copy; 2026 Metallic Panel
   <div class="banner">Neon Cockpit Active</div>
 </footer>
 
