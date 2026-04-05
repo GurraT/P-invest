@@ -3,18 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Holographic Metallic Dashboard</title>
+<title>Futuristic HUD Dashboard</title>
 <style>
   body {
     margin: 0;
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(120deg, rgba(255,255,255,0.02), rgba(200,200,200,0.05));
+    background: #0b0b0f; /* dark HUD background */
     color: #c0c0c0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    perspective: 1200px;
-    overflow-x: hidden;
+    overflow: hidden;
   }
 
   header {
@@ -22,16 +18,15 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    position: sticky;
-    top: 0;
+    position: relative;
     z-index: 100;
   }
 
   header h1 {
     margin: 0;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     color: #c0c0c0;
-    text-shadow: 0 0 4px rgba(255,255,255,0.4);
+    text-shadow: 0 0 6px #00ffff;
   }
 
   .hamburger {
@@ -45,100 +40,122 @@
     height: 3px;
     background: rgba(200,200,200,0.6);
     border-radius: 2px;
-    box-shadow: 0 0 4px rgba(255,255,255,0.3);
+    box-shadow: 0 0 4px #00ffff;
   }
 
   main {
-    flex: 1;
-    padding: 2rem;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-  }
-
-  .panel {
     position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    width: 100%;
+    height: calc(100vh - 80px);
+  }
+
+  /* Central circular HUD */
+  .hud-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    border: 2px solid rgba(0,255,255,0.4);
+    box-shadow: 0 0 20px rgba(0,255,255,0.2);
+  }
+
+  .hud-center::before, .hud-center::after {
+    content: '';
+    position: absolute;
+    border: 1px solid rgba(0,255,255,0.2);
+    border-radius: 50%;
+    width: 80%;
+    height: 80%;
+    top: 10%;
+    left: 10%;
+  }
+
+  /* HUD panels */
+  .hud-panel {
+    position: absolute;
     padding: 1rem;
-    border: none; /* removed border */
-    border-radius: 16px;
-    background: rgba(255,255,255,0.03);
+    background: rgba(255,255,255,0.02);
+    border-radius: 12px;
     color: #c0c0c0;
+    box-shadow: 0 0 10px rgba(0,255,255,0.2);
     text-align: center;
-    box-shadow: 0 0 12px rgba(255,255,255,0.1);
-    transform-style: preserve-3d;
-    transition: transform 0.3s, box-shadow 0.3s;
-    backdrop-filter: blur(6px) saturate(150%);
+    border: 1px solid rgba(0,255,255,0.2);
   }
 
-  .panel:hover {
-    transform: translateZ(20px) rotateY(5deg) rotateX(3deg);
-    box-shadow: 0 0 24px rgba(255,255,255,0.2);
+  .hud-panel h2 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1rem;
+    color: #00ffff;
   }
 
-  .panel h2 {
-    margin: 0 0 1rem 0;
-    font-weight: 500;
-    text-shadow: 0 0 2px rgba(255,255,255,0.3);
-  }
+  /* Positions around the center */
+  #conclusion { top: 5%; left: 50%; transform: translateX(-50%); width: 250px; }
+  #graph { bottom: 5%; left: 10%; width: 200px; }
+  #barometer { bottom: 5%; right: 10%; width: 200px; }
 
   .flat-barometer {
-    width: 80%;
-    height: 15px;
-    background: rgba(255,255,255,0.05);
-    border-radius: 8px;
+    width: 100%;
+    height: 12px;
+    background: rgba(0,255,255,0.05);
+    border-radius: 6px;
     overflow: hidden;
-    margin-top: 1rem;
-    box-shadow: inset 0 0 6px rgba(255,255,255,0.2);
-  }
-  .flat-barometer-fill {
-    height: 100%;
-    background: linear-gradient(90deg, rgba(200,200,200,0.4), rgba(255,255,255,0.2));
-    width: 75%;
+    margin-top: 0.5rem;
+    box-shadow: inset 0 0 4px rgba(0,255,255,0.2);
   }
 
-  footer {
-    text-align: center;
-    padding: 1rem;
+  .flat-barometer-fill {
+    height: 100%;
+    background: linear-gradient(90deg, rgba(0,255,255,0.4), rgba(0,255,255,0.2));
+    width: 70%;
   }
-  footer .banner {
-    background: rgba(255,255,255,0.05);
-    padding: 0.5rem 1rem;
-    border-radius: 12px;
-    font-weight: bold;
-    color: #c0c0c0;
-    margin-top: 0.5rem;
-    display: inline-block;
-    box-shadow: 0 0 6px rgba(255,255,255,0.1);
+
+  canvas {
+    width: 100%;
+    height: 100px;
+    background: rgba(0,255,255,0.05);
+    border-radius: 6px;
+    box-shadow: 0 0 6px rgba(0,255,255,0.2);
   }
+
+  /* Connecting HUD lines */
+  .line {
+    position: absolute;
+    width: 2px;
+    background: rgba(0,255,255,0.2);
+    transform-origin: top;
+  }
+
 </style>
 </head>
 <body>
 <header>
-  <h1>Holographic Metallic Panel</h1>
+  <h1>Futuristic HUD</h1>
   <div class="hamburger" onclick="toggleMenu()">
     <div></div><div></div><div></div>
   </div>
 </header>
 
 <main>
-  <!-- Conclusion Panel on top -->
-  <div class="panel">
+  <!-- Central circular HUD -->
+  <div class="hud-center"></div>
+
+  <!-- Conclusion panel above center -->
+  <div id="conclusion" class="hud-panel">
     <h2>Conclusion</h2>
     <p>System insights displayed here.</p>
   </div>
 
-  <!-- Graph Panel -->
-  <div class="panel">
+  <!-- Graph panel bottom left -->
+  <div id="graph" class="hud-panel">
     <h2>Graph</h2>
-    <canvas id="graphCanvas" width="200" height="150"></canvas>
+    <canvas id="graphCanvas"></canvas>
   </div>
 
-  <!-- Barometer Panel -->
-  <div class="panel">
+  <!-- Barometer panel bottom right -->
+  <div id="barometer" class="hud-panel">
     <h2>Barometer</h2>
     <div class="flat-barometer">
       <div class="flat-barometer-fill"></div>
@@ -146,15 +163,10 @@
   </div>
 </main>
 
-<footer>
-  &copy; 2026 Metallic Hologram
-  <div class="banner">Floating Holographic Dashboard</div>
-</footer>
-
 <script>
 function toggleMenu(){ alert('Hamburger clicked!'); }
 
-// Chart.js for graph
+// Chart.js for Graph
 const script = document.createElement('script');
 script.src = "https://cdn.jsdelivr.net/npm/chart.js";
 script.onload = () => {
@@ -164,18 +176,18 @@ script.onload = () => {
     data:{
       labels:['Jan','Feb','Mar','Apr','May','Jun'],
       datasets:[{
-        label:'Data', 
-        data:[12,19,3,5,2,3], 
-        borderColor:'rgba(200,200,200,0.6)', 
-        backgroundColor:'rgba(255,255,255,0.1)', 
+        label:'Data',
+        data:[12,19,3,5,2,3],
+        borderColor:'rgba(0,255,255,0.6)',
+        backgroundColor:'rgba(0,255,255,0.1)',
         tension:0.3
       }]
     },
     options:{
-      plugins:{legend:{labels:{color:'#c0c0c0'}}},
+      plugins:{legend:{labels:{color:'#00ffff'}}},
       scales:{
-        x:{ticks:{color:'#c0c0c0'},grid:{color:'rgba(200,200,200,0.1)'}},
-        y:{ticks:{color:'#c0c0c0'},grid:{color:'rgba(200,200,200,0.1)'}}
+        x:{ticks:{color:'#00ffff'},grid:{color:'rgba(0,255,255,0.1)'}},
+        y:{ticks:{color:'#00ffff'},grid:{color:'rgba(0,255,255,0.1)'}}
       }
     }
   });
