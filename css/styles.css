@@ -7,18 +7,22 @@ body {
 }
 
 /* TOP NAV */
+
 .top-nav {
+    position: absolute;        /* Position relative to the body */
+    top: 20px;                 /* Distance from top */
+    right: 20px;               /* Distance from right */
     display: flex;
-    justify-content: center;
-    gap: 12px;
-    padding: 20px;
+    flex-direction: column;    /* Stack hexes vertically */
+    gap: 10px;                 /* Space between hexes */
+    z-index: 1000;             /* On top of other elements */
 }
 
-.hex {
-    width: 60px;
-    height: 34px;
-    background: rgba(0,255,255,0.15);
-    clip-path: polygon(
+/* Adjust hex size for the smaller nav */
+.top-nav .hex.small {
+    width: 40px;               /* smaller width */
+    height: 40px;              /* smaller height */
+        clip-path: polygon(
         25% 0%, 75% 0%, 
         100% 50%, 75% 100%, 
         25% 100%, 0% 50%
