@@ -6,6 +6,27 @@ body {
     overflow: hidden;
 }
 
+/* HEADER STYLING */
+.header {
+    display: flex;
+    justify-content: space-between; /* Title left, nav right */
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #111; /* or any color you like */
+    color: #fff;
+}
+
+.site-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* Move top-nav to the right */
+.top-nav {
+    display: flex;
+    gap: 10px; /* spacing between hexes */
+}
+
 /* TOP NAV */
 
 .top-nav {
