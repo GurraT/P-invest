@@ -6,73 +6,50 @@ body {
     overflow: hidden;
 }
 
-/* HUB CONTAINER IN UPPER-RIGHT */
-.hub-container {
-    position: fixed;      /* stays in place while scrolling */
-    top: 20px;            /* distance from top */
-    right: 20px;          /* distance from right */
-    width: 200px;         /* adjust size as needed */
-    height: 200px;
-    z-index: 100;
-}
-
-/* SCRIMMED HUB */
-.hub {
-    width: 100%;
-    height: 100%;
-    border-radius: 12px; /* rounded rectangle for scrim effect */
-    background-color: rgba(0, 255, 255, 0.2); /* semi-transparent */
-    border: 1px solid rgba(0, 255, 255, 0.5);
+/* HEXAGON ORBIT CONTAINER IN UPPER-RIGHT */
+.orbit-container {
+    position: fixed;      /* stay in corner */
+    top: 20px;
+    right: 20px;
+    width: 220px;
+    height: 220px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 26px;
-    font-weight: bold;
-    color: #0ff;
-    text-shadow: 0 0 5px #0ff;
-    box-shadow: 0 0 20px #0ff, inset 0 0 20px #0ff;
-    backdrop-filter: blur(5px); /* optional glassy effect */
-    transition: 0.3s;
 }
 
-/* ORBIT CONTAINED INSIDE HUB */
-.orbit {
-    position: relative;   /* relative to hub */
-    width: 100%;
-    height: 100%;
-}
-
-/* NODES INSIDE HUB */
+/* HEX NODES */
 .node {
     position: absolute;
-    width: 30px;          /* smaller for corner HUB */
-    height: 30px;
-    border: 2px solid #0ff;
-    border-radius: 50%;   /* circular nodes */
+    width: 50px;
+    height: 50px;
+    background-color: rgba(0, 255, 255, 0.2); /* scrimmed */
+    border: 2px solid rgba(0, 255, 255, 0.5);
+    clip-path: polygon(
+        25% 0%, 75% 0%, 
+        100% 50%, 75% 100%, 
+        25% 100%, 0% 50%
+    ); /* hex shape */
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 10px;
+    font-size: 11px;
+    color: #0ff;
     cursor: pointer;
     transition: 0.3s;
-    background-color: rgba(0, 255, 255, 0.1);
-}
-
-.node:hover {
-    background: rgba(0,255,255,0.3);
-}
-
-.node.active {
-    background: rgba(0,255,255,0.5);
     box-shadow: 0 0 10px #0ff;
 }
 
-/* SIMPLE ORBIT POSITIONING */
-.node:nth-child(1) { top: 10%; left: 50%; transform: translate(-50%, 0); }
-.node:nth-child(2) { top: 30%; left: 85%; transform: translate(-50%, -50%); }
-.node:nth-child(3) { top: 60%; left: 85%; transform: translate(-50%, -50%); }
-.node:nth-child(4) { top: 85%; left: 50%; transform: translate(-50%, -50%); }
-.node:nth-child(5) { top: 60%; left: 15%; transform: translate(-50%, -50%); }
-.node:nth-child(6) { top: 30%; left: 15%; transform: translate(-50%, -50%); }
-.node:nth-child(7) { top: 50%; left: 50%; transform: translate(-50%, -50%); }
-.node:nth-child(8) { top: 20%; left: 50%; transform: translate(-50%, -50%); }
+.node:hover {
+    background-color: rgba(0, 255, 255, 0.4);
+    box-shadow: 0 0 15px #0ff, 0 0 30px #0ff inset;
+}
+
+/* HEXAGON POSITIONING - 7 nodes in a hexagonal shape */
+.node:nth-child(1) { top: 0%; left: 50%; transform: translate(-50%, 0); }
+.node:nth-child(2) { top: 25%; left: 15%; transform: translate(-50%, -50%); }
+.node:nth-child(3) { top: 25%; left: 85%; transform: translate(-50%, -50%); }
+.node:nth-child(4) { top: 50%; left: 0%; transform: translate(-50%, -50%); }
+.node:nth-child(5) { top: 50%; left: 100%; transform: translate(-50%, -50%); }
+.node:nth-child(6) { top: 75%; left: 15%; transform: translate(-50%, -50%); }
+.node:nth-child(7) { top: 75%; left: 85%; transform: translate(-50%, -50%); }
