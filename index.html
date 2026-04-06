@@ -1,119 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Futuristic Mind Map</title>
-<style>
-  body {
-    background-color: #0d0d0d;
-    font-family: 'Arial', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    overflow: hidden;
-  }
-
-  .mindmap {
-    position: relative;
-    width: 600px;
-    height: 600px;
-  }
-
-  .node {
-    position: absolute;
-    padding: 15px 25px;
-    background: linear-gradient(135deg, #00f0ff, #ff00ff);
-    border-radius: 15px;
-    color: #fff;
-    text-align: center;
-    font-weight: bold;
-    box-shadow: 0 0 15px rgba(0,255,255,0.7), 0 0 30px rgba(255,0,255,0.5);
-    cursor: pointer;
-    transition: transform 0.3s;
-  }
-
-  .node:hover {
-    transform: scale(1.1);
-  }
-
-  .center {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-
-  .stocks { top: 10%; left: 50%; transform: translate(-50%, 0); }
-  .market { top: 50%; left: 90%; transform: translate(-50%, -50%); }
-  .conclusion { top: 90%; left: 50%; transform: translate(-50%, -50%); }
-  .other { top: 50%; left: 10%; transform: translate(-50%, -50%); }
-
-  /* Lines connecting nodes */
-  .line {
-    position: absolute;
-    width: 2px;
-    background: #0ff;
-    transform-origin: top left;
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futuristic HUB UI</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-<div class="mindmap">
-  <!-- Nodes -->
-  <div class="node center">Home</div>
-  <div class="node stocks">Stocks</div>
-  <div class="node market">Market Info</div>
-  <div class="node conclusion">Conclusion</div>
-  <div class="node other">Other</div>
 
-  <!-- Lines -->
-  <div class="line" id="line1"></div>
-  <div class="line" id="line2"></div>
-  <div class="line" id="line3"></div>
-  <div class="line" id="line4"></div>
+<!-- TOP NAV (beecumbs) -->
+<div class="top-nav">
+    <div class="hex small" data-name="Dashboard"></div>
+    <div class="hex small" data-name="Systems"></div>
+    <div class="hex small" data-name="Network"></div>
+    <div class="hex small" data-name="Security"></div>
+    <div class="hex small" data-name="Settings"></div>
 </div>
 
-<script>
-  // Function to draw line between two nodes
-  function connectLine(lineId, nodeA, nodeB) {
-    const line = document.getElementById(lineId);
-    const rectA = nodeA.getBoundingClientRect();
-    const rectB = nodeB.getBoundingClientRect();
+<!-- HUB -->
+<div class="hub-container">
+    <div class="hub" id="hubDisplay">HUB</div>
 
-    const parentRect = nodeA.parentElement.getBoundingClientRect();
+    <div class="orbit">
+        <div class="node" data-name="Home"></div>
+        <div class="node" data-name="Light"></div>
+        <div class="node" data-name="Camera"></div>
+        <div class="node" data-name="Data"></div>
+        <div class="node" data-name="Stats"></div>
+        <div class="node" data-name="Grid"></div>
+        <div class="node" data-name="Lock"></div>
+        <div class="node" data-name="Settings"></div>
+    </div>
+</div>
 
-    const x1 = rectA.left + rectA.width / 2 - parentRect.left;
-    const y1 = rectA.top + rectA.height / 2 - parentRect.top;
-    const x2 = rectB.left + rectB.width / 2 - parentRect.left;
-    const y2 = rectB.top + rectB.height / 2 - parentRect.top;
-
-    const length = Math.hypot(x2 - x1, y2 - y1);
-    const angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
-
-    line.style.width = length + "px";
-    line.style.top = y1 + "px";
-    line.style.left = x1 + "px";
-    line.style.transform = `rotate(${angle}deg)`;
-  }
-
-  const home = document.querySelector('.center');
-  const stocks = document.querySelector('.stocks');
-  const market = document.querySelector('.market');
-  const conclusion = document.querySelector('.conclusion');
-  const other = document.querySelector('.other');
-
-  connectLine('line1', home, stocks);
-  connectLine('line2', home, market);
-  connectLine('line3', home, conclusion);
-  connectLine('line4', home, other);
-
-  window.addEventListener('resize', () => {
-    connectLine('line1', home, stocks);
-    connectLine('line2', home, market);
-    connectLine('line3', home, conclusion);
-    connectLine('line4', home, other);
-  });
-</script>
+<script src="js/script.js"></script>
 </body>
 </html>
